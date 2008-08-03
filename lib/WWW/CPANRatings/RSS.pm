@@ -3,17 +3,19 @@ package WWW::CPANRatings::RSS;
 use warnings;
 use strict;
 
-our $VERSION = '0.0101';
+our $VERSION = '0.0201';
 
 
 use XML::Simple;
 use LWP::UserAgent;
+use Storable qw/lock_retrieve lock_store/;
 
 use base 'Class::Data::Accessor';
 __PACKAGE__->mk_classaccessors qw/
     error
     ua
     ratings
+    ratings_unique
 /;
 
 sub new {
@@ -64,6 +66,46 @@ sub fetch {
     return $self->ratings( \@ratings );
 }
 
+sub fetch_unique {
+    my ( $self, $file ) = @_;
+
+    $self->ratings_unique(undef);
+    
+    unless ( defined $file ) {
+        $file = 'cpan_ratings.rss.storable';
+    }
+
+    my $old_ratings_ref;
+    eval {
+        $old_ratings_ref = lock_retrieve( $file );
+    };
+
+    $old_ratings_ref ||= [];
+
+    my $ratings_ref = $self->fetch
+        or return; # error will be set by fetch();
+
+    my %existing = map { $_->{link} => 1 } @$old_ratings_ref;
+
+    my @new_ratings;
+    for ( reverse @$ratings_ref ) {
+        next if exists $existing{ $_->{link} };
+        unshift @new_ratings, {%$_};
+    };
+
+    unshift @$old_ratings_ref, @new_ratings;
+    splice @$old_ratings_ref, 0, 20;
+
+    eval {
+        lock_store($old_ratings_ref, $file);
+    };
+    if ( $@ ) {
+        $self->error("Error with file [$file] [$@]");
+        return;
+    }
+
+    return $self->ratings_unique( \@new_ratings );
+}
 
 1;
 __END__
@@ -90,13 +132,12 @@ WWW::CPANRatings::RSS - get information from RSS feed on http://cpanratings.perl
     }
 
 
-    WWW-Google-Video - 2 stars - by Zoffix Znet
-    --- The module doesn't do any error checking when using get() from LWP::Simple which causes warnings to be printed due to subsequent regex matches done on ... ---
-    see http://cpanratings.perl.org/#4478
-
-    String-String - 1 stars - by BKB
-    --- A completely pointless module, it consists of exactly one line of code, and a hundred lines of documentation. I don't know why anyone would need to do ... ---
-    see http://cpanratings.perl.org/#4476
+    $rate->fetch_uniqe
+        or die $rate->error;
+    for ( @{ $rate->ratings_unique } ) {
+        printf "%s - %s stars - by %s\n--- %s ---\nsee %s\n\n\n",
+            @$_{ qw/dist rating creator comment link/ }
+    }
 
     # ... and so on...
 
@@ -198,6 +239,27 @@ The C<rating> key will contain the rating of the distribution
 given by the creator of the review. It will either be the number of "stars"
 or 'N/A' if no rating was given.
 
+=head2 C<fetch_unique>
+
+    my $unique_ref => $rate->fetch_unique
+        or die $rate->error;
+
+    my $unique_ref => $rate->fetch_unique('some.file')
+        or die $rate->error;
+
+In case of an error will return either
+C<undef> or an empty list and the error message will be available via
+C<error()> method.
+The C<fetch_unique> method is the same as C<fetch> method and B<returns>
+the arrayref in the same format. The difference is that C<fetch_unique>
+will read/store any reviews that it were already reported and will only
+return the ones that haven't been reported yet. You can use this method
+to implement "new cpan ratings" announcements. Takes one B<optional>
+argument which is a scalar containing the name of the file into which
+to store the already reported reviews which is the same file from which
+the module will attempt to read already reported reviews. The argument will
+B<defaul to> C<'cpan_ratings.rss.storable'> if not specified.
+
 =head2 C<error>
 
     my $ratings = $rate->fetch
@@ -216,6 +278,17 @@ method will return a string which describes the reason for failure.
 Must be called after a successful call to C<fetch()> method. Returns
 the exact same arrayref as the last call to C<fetch()> returned;
 
+=head2 C<ratings_unique>
+
+    $rate->fetch_unique
+        or die $rate_error;
+
+    my $ratings_unique = $rate->ratings_unique;
+
+Must be called after a successful call to C<fetch_unique()> method. Returns
+the exact same arrayref as the last call to C<fetch_unique()> method
+returned.
+
 =head2 C<ua>
 
     my $ua_obj = $rate->ua;
@@ -229,12 +302,13 @@ in any subsequent calls to C<fetch()> method.
 
 =head1 PREREQUISITES
 
-For healthy operation this module needs L<XML::Simple> and L<LWP::UserAgent>
+For healthy operation this module needs L<XML::Simple>, L<LWP::UserAgent>
+and L<Storable>
 
 =head1 EXAMPLES
 
 The C<examples/> directory of this distributing contains a script
-presented in the SYNOPSYS section.
+that shows the usage of both C<fetch> and C<fetch_unique>
 
 =head1 AUTHOR
 

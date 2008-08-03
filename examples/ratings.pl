@@ -15,3 +15,13 @@ for ( @{ $rate->ratings } ) {
     printf "%s - %s stars - by %s\n--- %s ---\nsee %s\n\n\n",
         @$_{ qw/dist rating creator comment link/ };
 }
+
+print "\n\n\nNew reviews:\n";
+
+$rate->fetch_unique
+    or die $rate->error;
+
+for ( @{ $rate->ratings_unique } ) {
+    printf "%s - %s stars - by %s\n--- %s ---\nsee %s\n\n\n",
+        @$_{ qw/dist rating creator comment link/ };
+}

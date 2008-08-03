@@ -1,5 +1,8 @@
 Revision history for WWW-CPANRatings-RSS
 
+0.0201  August 3, 2008
+        Added the fetch_unique() and ratings_unique() methods.
+
 0.0101  August 3, 2008
         First version, released on an unsuspecting world.
 

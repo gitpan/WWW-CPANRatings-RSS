@@ -13,6 +13,7 @@ my $builder = Module::Build->new(
     requires => {
         'XML::Simple'    => 2.18,
         'LWP::UserAgent' => 2.036,
+        'Storable' => 2.18,
     },
     add_to_cleanup      => [ 'WWW-CPANRatings-RSS-*' ],
     create_makefile_pl => 'traditional',

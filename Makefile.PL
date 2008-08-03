@@ -10,7 +10,8 @@ WriteMakefile
           'PREREQ_PM' => {
                            'Test::More' => 0,
                            'LWP::UserAgent' => '2.036',
-                           'XML::Simple' => '2.18'
+                           'XML::Simple' => '2.18',
+                           'Storable' => '2.18'
                          }
         )
 ;
