@@ -3,7 +3,7 @@ package WWW::CPANRatings::RSS;
 use warnings;
 use strict;
 
-our $VERSION = '0.0202';
+our $VERSION = '0.0203';
 
 
 use XML::Simple;
@@ -42,7 +42,15 @@ sub fetch {
         return; 
     }
 
-    my $feed = XMLin( $response->content );
+    my $feed;
+    # calling XMLin caused warnings to print out on my system....
+    # YES OMG!! LOOOK AT THIS!!1oneone ^_^
+    {
+        local *STDERR;
+        open STDERR, '>', \my $crap;
+        $feed = XMLin( $response->content );
+    }
+
     my @ratings;
     for my $item ( @{ $feed->{item} || [] } ) {
         my ( $rating, $comment ) = $item->{description}
@@ -94,7 +102,7 @@ sub fetch_unique {
     };
 
     unshift @$old_ratings_ref, @new_ratings;
-    splice @$old_ratings_ref, 0, 20;
+    @$old_ratings_ref = splice @$old_ratings_ref, 0, 20;
 
     eval {
         lock_store($old_ratings_ref, $file);
