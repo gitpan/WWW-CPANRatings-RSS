@@ -1,11 +1,12 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 108;
+use Test::More tests => 109;
 
 BEGIN {
     use_ok('XML::Simple');
     use_ok('LWP::UserAgent');
 	use_ok( 'WWW::CPANRatings::RSS' );
+    use_ok('Class::Data::Accessor');
 }
 
 diag( "Testing WWW::CPANRatings::RSS $WWW::CPANRatings::RSS::VERSION, Perl $], $^X" );

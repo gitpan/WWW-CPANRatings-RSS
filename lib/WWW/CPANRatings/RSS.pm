@@ -3,7 +3,7 @@ package WWW::CPANRatings::RSS;
 use warnings;
 use strict;
 
-our $VERSION = '0.0201';
+our $VERSION = '0.0202';
 
 
 use XML::Simple;
