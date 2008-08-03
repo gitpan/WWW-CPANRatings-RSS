@@ -1,0 +1,12 @@
+Build.PL
+Changes
+MANIFEST
+README
+lib/WWW/CPANRatings/RSS.pm
+t/00-load.t
+t/kwalitee.t
+examples/ratings.pl
+t/pod-coverage.t
+t/pod.t
+Makefile.PL
+META.yml
