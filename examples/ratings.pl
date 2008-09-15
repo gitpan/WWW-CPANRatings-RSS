@@ -3,15 +3,17 @@
 use strict;
 use warnings;
 
-our $VERSION = '0.0203';
+our $VERSION = '0.0303';
 
 use lib qw(../lib lib);
 use WWW::CPANRatings::RSS;
 
 my $rate = WWW::CPANRatings::RSS->new;
 
-# $rate->fetch
-#     or die $rate->error;
+#  $rate->fetch
+#      or die $rate->error;
+# 
+# print "Got " . @{ $rate->ratings } . " dists\n";
 
 #for ( @{ $rate->ratings } ) {
 #    printf "%s - %s stars - by %s\n--- %s ---\nsee %s\n\n\n",

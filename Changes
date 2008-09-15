@@ -1,5 +1,8 @@
 Revision history for WWW-CPANRatings-RSS
 
+0.0303  August 3, 2008
+        Fixed a bug in fetch_unique() that caused it being not so unique.
+
 0.0203  August 3, 2008
         Had an obvious bug in fetch_unique()... how did I miss that :/
 

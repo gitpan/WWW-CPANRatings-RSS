@@ -3,7 +3,7 @@ package WWW::CPANRatings::RSS;
 use warnings;
 use strict;
 
-our $VERSION = '0.0203';
+our $VERSION = '0.0303';
 
 
 use XML::Simple;
@@ -102,7 +102,7 @@ sub fetch_unique {
     };
 
     unshift @$old_ratings_ref, @new_ratings;
-    @$old_ratings_ref = splice @$old_ratings_ref, 0, 20;
+    @$old_ratings_ref = splice @$old_ratings_ref, 0, 60;
 
     eval {
         lock_store($old_ratings_ref, $file);
