@@ -11,12 +11,12 @@ BEGIN {
 
 diag( "Testing WWW::CPANRatings::RSS $WWW::CPANRatings::RSS::VERSION, Perl $], $^X" );
 
-
 my $rate = WWW::CPANRatings::RSS->new;
 isa_ok($rate, 'WWW::CPANRatings::RSS');
 can_ok($rate, qw/new fetch error ratings ua/);
 isa_ok($rate->ua, 'LWP::UserAgent');
 
+diag("Starting fetch");
 my $ratings_ref = $rate->fetch;
 
 SKIP: {

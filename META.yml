@@ -1,6 +1,6 @@
 ---
 name: WWW-CPANRatings-RSS
-version: 0.0303
+version: 0.0304
 author:
   - 'Zoffix Znet <zoffix@cpan.org>'
 abstract: get information from RSS feed on http://cpanratings.perl.org/
@@ -17,7 +17,7 @@ build_requires:
 provides:
   WWW::CPANRatings::RSS:
     file: lib/WWW/CPANRatings/RSS.pm
-    version: 0.0303
+    version: 0.0304
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
