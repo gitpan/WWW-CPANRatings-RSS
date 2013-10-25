@@ -3,7 +3,7 @@ package WWW::CPANRatings::RSS;
 use warnings;
 use strict;
 
-our $VERSION = '0.0304';
+our $VERSION = '0.0305';
 
 
 use XML::Simple;
@@ -11,12 +11,12 @@ use LWP::UserAgent;
 use Storable qw/lock_retrieve lock_store/;
 
 use base 'Class::Data::Accessor';
-__PACKAGE__->mk_classaccessors qw/
+__PACKAGE__->mk_classaccessors (qw/
     error
     ua
     ratings
     ratings_unique
-/;
+/);
 
 sub new {
     my $class = shift;

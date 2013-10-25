@@ -15,7 +15,9 @@ my $builder = Module::Build->new(
         'LWP::UserAgent' => 2.036,
         'Storable' => 2.18,
         'Class::Data::Accessor' => 0.04001,
+        perl => 5.008,
     },
+    configure_requires => { 'Module::Build' => 0.40 },
     add_to_cleanup      => [ 'WWW-CPANRatings-RSS-*' ],
     create_makefile_pl => 'traditional',
 );
