@@ -1,5 +1,8 @@
 Revision history for WWW-CPANRatings-RSS
 
+0.0306  2013-11-03
+        - Fixed broken Kwalitee test
+
 0.0305  2013-10-24
         - Fixed Test::Kwalitee to run only with RELEASE_TEST
         - Fixed warning about deprecated use of qw() without parentheses

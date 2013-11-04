@@ -1,10 +1,12 @@
 #!/usr/bin/env perl
 
-  use Test::More;
- 
-   eval { require Test::Kwalitee; Test::Kwalitee->import() };
- 
-   plan(
-       skip_all => $ENV{RELEASE_TESTING} ? 'Not an author releast; skipping' : 'Test::Kwalitee not installed; skipping' 
-       
- ) if $@ or !$ENV{RELEASE_TESTING};
+
+BEGIN {
+    unless ($ENV{RELEASE_TESTING})
+    {
+        use Test::More;
+        plan(skip_all => 'these tests are for release candidate testing');
+    }
+}
+
+use Test::Kwalitee;

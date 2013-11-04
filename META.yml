@@ -5,7 +5,7 @@ author:
 build_requires:
   Test::More: 0
 configure_requires:
-  Module::Build: 0.4
+  Module::Build: 0
 dynamic_config: 1
 generated_by: 'Module::Build version 0.4007, CPAN::Meta::Converter version 2.132830'
 license: perl
@@ -16,7 +16,7 @@ name: WWW-CPANRatings-RSS
 provides:
   WWW::CPANRatings::RSS:
     file: lib/WWW/CPANRatings/RSS.pm
-    version: 0.0305
+    version: 0.0306
 requires:
   Class::Data::Accessor: 0.04001
   LWP::UserAgent: 2.036
@@ -25,4 +25,4 @@ requires:
   perl: 5.008
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.0305
+version: 0.0306

@@ -2,6 +2,7 @@ Build.PL
 Changes
 MANIFEST
 README
+LICENSE
 lib/WWW/CPANRatings/RSS.pm
 t/00-load.t
 t/kwalitee.t

@@ -17,7 +17,7 @@ my $builder = Module::Build->new(
         'Class::Data::Accessor' => 0.04001,
         perl => 5.008,
     },
-    configure_requires => { 'Module::Build' => 0.40 },
+    configure_requires => { 'Module::Build' => 0 },
     add_to_cleanup      => [ 'WWW-CPANRatings-RSS-*' ],
     create_makefile_pl => 'traditional',
 );

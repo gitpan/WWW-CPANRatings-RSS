@@ -3,7 +3,7 @@ package WWW::CPANRatings::RSS;
 use warnings;
 use strict;
 
-our $VERSION = '0.0305';
+our $VERSION = '0.0306';
 
 
 use XML::Simple;
@@ -317,6 +317,10 @@ and L<Storable>
 
 The C<examples/> directory of this distributing contains a script
 that shows the usage of both C<fetch> and C<fetch_unique>
+
+=head1 CONTRIBUTIONS
+
+Andreas 'ANDK' J. König -- bug report on broken tests
 
 =head1 AUTHOR
 
