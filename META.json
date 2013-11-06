@@ -37,7 +37,7 @@
    "provides" : {
       "WWW::CPANRatings::RSS" : {
          "file" : "lib/WWW/CPANRatings/RSS.pm",
-         "version" : "0.0306"
+         "version" : "0.0307"
       }
    },
    "release_status" : "stable",
@@ -46,5 +46,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.0306"
+   "version" : "0.0307"
 }

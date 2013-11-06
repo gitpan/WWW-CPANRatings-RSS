@@ -1,5 +1,8 @@
 Revision history for WWW-CPANRatings-RSS
 
+0.0307  2013-11-05
+        - Moved author tests to xt/
+
 0.0306  2013-11-03
         - Fixed broken Kwalitee test
 

@@ -3,7 +3,7 @@ package WWW::CPANRatings::RSS;
 use warnings;
 use strict;
 
-our $VERSION = '0.0306';
+our $VERSION = '0.0307';
 
 
 use XML::Simple;
@@ -117,6 +117,8 @@ sub fetch_unique {
 
 1;
 __END__
+
+=encoding utf8
 
 =head1 NAME
 
